@@ -1,0 +1,234 @@
+{% extends 'loan_back/home.html' %}{% load static %}
+
+  {%block content %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>sigh in</title>
+   <style>
+  #profileImage {
+    width: 150px;
+      height: 150px;
+  border-radius: 50%;
+  background: black;
+  font-size: 35px;
+  color: #fff;
+  text-align: center;
+  line-height: 150px;
+  margin-left: 2em;
+}
+.loan{
+  padding: 0 5em;
+}
+
+   </style>
+  </head>
+
+  <body>
+    <!-- Start your project here-->
+    <section style="background-color: #eee">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-4">
+              <div class="card-body text-center">
+                <img
+                
+                 src="https://png.pngtree.com/png-vector/20190623/ourlarge/pngtree-accountavataruser--flat-color-icon--vector-icon-banner-templ-png-image_1491720.jpg"
+                  alt="avatar"
+                  class="rounded-circle img-fluid"
+                  style="width: 150px"
+
+
+               />
+
+             
+                <h5 class="my-3">{{request.user.email}}</h5>
+                <p class="text-muted mb-1">{{request.user.username}}</p>
+                <p class="text-muted mb-4">{{request.user.address}}</p>
+                <div class="d-flex justify-content-center mb-2">
+                 <a href="/logout"> <button type="button" class="btn btn-primary">logout</button></a>
+                  <!-- <button type="button" class="btn btn-outline-primary ms-1">
+                    update profile
+                  </button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">fullname</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                     {{request.user.username}}  {{request.user.lastname}}
+
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">{{request.user.email}}</p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Phone</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      {{request.user.phone}} 
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">address</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      {{request.user.address}} 
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">date joined</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      {{request.user.created_at}} 
+                    </p>
+                  </div>
+                </div>
+                <hr/>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">id number</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <p class="text-muted mb-0">
+                      {{request.user.idnumber}} 
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+    </section>
+    <!-- End your project here-->
+    
+     <section style="background-color: #eee" class="loan">
+      <h1>your current active loans</h1>
+      {% for loans in loans %}
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">loan id</th>
+            <th scope="col">email</th>
+            <th scope="col">amoount</th>
+            <th scope="col">status</th>
+            <th scope="col">term</th>
+            <th scope="col">start date</th>
+            {% if loans.status == "approved" %}
+            <th scope="col">make payment</th>
+            {% endif %}
+          </tr>
+        </thead>
+      
+        <tbody>
+          <tr>
+          
+            <th id="loanid" scope="row">{{loans.id}}</th>
+            <td>{{loans.borrower}}</td>
+            <td>{{loans.loan_amount}}</td>
+            <td>{{loans.status}}</td>
+            <td>{{loans.loan_term}} months</td>
+            <td>{{loans.request_date}}</td>
+            {% if loans.status == "approved" %}
+            <th scope="col">
+              <button
+              type="button"
+              class="btn btn-primary"
+              data-mdb-toggle="modal"
+              data-mdb-target="#exampleModal"
+              data-mdb-whatever="@mdo"
+            >
+              make payments
+            </button>
+                         
+            </th>
+            {% endif %}
+
+          </tr>
+       
+        
+        </tbody>
+      </table>
+    
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">make payments</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="/accounts/profile/{{request.user.username}}/"  onsubmit="(e)=>e.preventDefaut()">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">email:</label>
+                  <input type="email" name="email" class="form-control" id="recipient-name" />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Amount:</label>
+                  <textarea class="form-control" name="amount" id="message-text"></textarea>
+                </div>
+                <input name="id" value="{{loans.id}}" style="display: block;"/>
+      
+                <button type="submit" class="btn btn-primary text-center">send payment</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+              <!-- <button type="submit" class="btn btn-primary">send payment</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    
+       </section>
+    <script>
+
+  </script>
+  </body>
+
+
+
+
+
+
+
+  {%endblock%}
+ 
+</html>

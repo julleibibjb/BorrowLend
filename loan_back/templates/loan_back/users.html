@@ -1,0 +1,68 @@
+{% extends 'loan_back/dashboard.html' %}{% load static %} {% block content %}
+<style>
+  .dir {
+    cursor: pointer;
+  }
+</style>
+<main style="margin-top: 6em">
+  <div class="container pt-4">
+    <section class="text-center mt-5">
+      <div class="row">
+        <div
+          onclick="next('users/active')"
+          class="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative dir"
+        >
+          <i class="fas fa-users fa-3x text-primary mb-4"></i>
+
+          <!-- <h5 class="text-primary fw-bold mb-3">100+</h5> -->
+          <h6 class="fw-normal mb-0">Users</h6>
+          <div
+            class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"
+          ></div>
+        </div>
+
+        <div
+          onclick="next('users/borrowers')"
+          class="col-lg-3 col-md-6 mb-5 mb-md-5 mb-lg-0 position-relative dir"
+        >
+          <i class="fas fa-rocket fa-3x text-primary mb-4"></i>
+
+          <!-- <h5 class="text-primary fw-bold mb-3">490+</h5> -->
+          <h6 class="fw-normal mb-0">Borrowers</h6>
+          <div
+            class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"
+          ></div>
+        </div>
+
+        <div
+          onclick="next('users/staff')"
+          class="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative dir"
+        >
+          <i class="fas fa-user-tie fa-3x text-primary mb-4"></i>
+
+          <!-- <h5 class="text-primary fw-bold mb-3">100+</h5> -->
+          <h6 class="fw-normal mb-0">Staff</h6>
+          <div
+            class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"
+          ></div>
+        </div>
+
+        <div
+          onclick="next('users/admin')"
+          class="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative dir"
+        >
+          <i class="fas fa-user-cog fa-3x text-primary mb-4"></i>
+
+          <!-- <h5 class="text-primary fw-bold mb-3">28</h5> -->
+          <h6 class="fw-normal mb-0">Admin</h6>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+  const next = (dir) => {
+    window.location.href = dir;
+  };
+</script>
+{% endblock %}

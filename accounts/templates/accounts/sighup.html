@@ -1,0 +1,145 @@
+{% extends 'loan_back/home.html' %}{% load static %} {%block content %}
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>sigh in</title>
+
+  <style>
+    .container {
+      margin: 0 auto;
+      width: 40%;
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    @media only screen and (max-width: 600px) {
+      .container {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Start your project here-->
+  <div class="container">
+    <form method="post" action="/accounts/sighup/">
+      <p style="color:blue;text-align: center;">Register</p>
+        {% csrf_token %}
+        <!-- 2 column grid layout with text inputs for the first and last names -->
+      </p>
+
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <input
+              name="firstname"
+              type="text"
+              id="form6Example1"
+              class="form-control"
+              required
+            />
+            <label class="form-label" for="form6Example1">First name</label>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <input
+              name="lastname"
+              type="text"
+              id="form6Example2"
+              class="form-control"
+              required
+            />
+            <label class="form-label" for="form6Example2">Last name</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-outline mb-4">
+        <input
+          type="number"
+          name="idnumber"
+          id="form6Example3"
+          class="form-control"
+          required
+        />
+        <label class="form-label" for="form6Example3">id number</label>
+      </div>
+      <!-- Text input -->
+      <div class="form-outline mb-4">
+        <input
+          type="email"
+          name="email"
+          id="form6Example3"
+          class="form-control"
+          required
+        />
+        <label class="form-label" for="form6Example3">email</label>
+      </div>
+
+      <!-- Text input -->
+      <div class="form-outline mb-4">
+        <input
+          type="text"
+          name="address"
+          id="form6Example4"
+          class="form-control"
+          required
+        />
+        <label class="form-label" for="form6Example4">Address</label>
+      </div>
+
+      <!-- Number input -->
+      <div class="form-outline mb-4">
+        <input
+          type="text"
+          name="phone"
+          id="form6Example6"
+          class="form-control"
+          required
+        />
+        <label class="form-label" for="form6Example6">Phone</label>
+      </div>
+
+      <!-- password -->
+      <div class="form-outline mb-4">
+        <input
+          type="password"
+          name="password"
+          id="form6Example6"
+          class="form-control"
+          required
+        />
+        <label class="form-label" for="form6Example6">password</label>
+      </div>
+
+      <!-- password -->
+      <div class="form-outline mb-4">
+        <input
+          type="password"
+          name="password1"
+          id="form6Example6"
+          class="form-control"
+          required
+        />
+        <label class="form-label" for="form6Example6">confirm password</label>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary btn-block mb-4">
+        create account
+      </button>
+      <div class="text-center">
+        <p>have an account? <a href="/accounts/sighin">login</a></p>
+      </div>
+    </form>
+  </div>
+  <!-- End your project here-->
+</body>
+{%endblock%}

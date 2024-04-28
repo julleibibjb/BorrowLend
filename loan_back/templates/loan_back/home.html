@@ -1,0 +1,282 @@
+{% load static %} {% include "loan_back/message.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- MDB icon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static '/img/xyzloans.png' %}"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static '/css/mdb.min.css' %}" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@500;700&family=Pacifico&family=Tilt+Prism&display=swap");
+      .h1 {
+        /* margin: 0; */
+        font-family: "Abril Fatface", cursive;
+      }
+      .h1 span {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Start your project here-->
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!-- Container wrapper -->
+      <div class="container-fluid ms-3 me-3">
+        <!-- Toggle button -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-mdb-toggle="collapse"
+          data-mdb-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Navbar brand -->
+          <a class="navbar-brand mt-2 mt-lg-0" href="/">
+            <!-- <img
+              src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+              height="15"
+              alt="MDB Logo"
+              loading="lazy"
+            /> -->
+            <h1 class="h1"><span>Borro</span>Lend</h1>
+          </a>
+          <!-- Left links -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- <li class="nav-item me-2">
+              <a class="nav-link" href="#">dashboard</a>
+            </li> -->
+            <li class="nav-item me-2">
+              <a class="nav-link" href="/loan/application">apply</a>
+            </li>
+            <!-- <li class="nav-item me-2">
+              <a class="nav-link" href="#">history</a>
+            </li> -->
+            <li class="nav-item me-2">
+              <a class="nav-link" href="#">contact us</a>
+            </li>
+          </ul>
+          <!-- Left links -->
+        </div>
+        <!-- Collapsible wrapper -->
+        {% if user.is_authenticated %}
+
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <!-- Icon -->
+          {% if user.is_superuser %}
+          <a
+            class="text-reset me-3 dropdown-toggle hidden-arrow"
+            href="/manager/dashboard"
+          >
+            admin
+          </a>
+          {% endif %}
+          <a
+            class="text-reset me-3 dropdown-toggle hidden-arrow"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-envelope fa-lg"></i>
+            <span
+              class="badge rounded-pill badge-notification bg-danger"
+            ></span>
+          </a>
+          <!-- Notifications -->
+          <div class="dropdown">
+            <a
+              class="text-reset me-3 dropdown-toggle hidden-arrow"
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fas fa-bell fa-lg"></i>
+              <span class="badge rounded-pill badge-notification bg-danger"
+                >{{num}}</span
+              >
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
+              {% for message in notifcation %}
+              <li>
+                <a class="dropdown-item" href="#">{{message.message}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <!-- Avatar -->
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle d-flex align-items-center hidden-arrow"
+              href="accounts/profile/"
+              id="navbarDropdownMenuAvatar"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://png.pngtree.com/png-vector/20190623/ourlarge/pngtree-accountavataruser--flat-color-icon--vector-icon-banner-templ-png-image_1491720.jpg"
+                class="rounded-circle"
+                height="40"
+                alt="Black and White Portrait of a Man"
+                loading="lazy"
+              />
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdownMenuAvatar"
+            >
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="/accounts/profile/{{request.user.username}}"
+                  >{{request.user}}</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="/accounts/profile/{{request.user.username}}"
+                  >My profile</a
+                >
+              </li>
+              <!-- <li>
+                <a class="dropdown-item" href="#">Settings</a>
+              </li>-->
+              <li>
+                <a class="dropdown-item" href="/accounts/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Right elements -->
+        {% else %}
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+          <a href="/accounts/sighin">
+            <button type="button" class="btn btn-primary me-3">login</button>
+          </a>
+          <a href="/accounts/sighup">
+            <button type="button" class="btn btn-primary me-3">
+              apply now
+            </button>
+          </a>
+        </div>
+        <!-- Right elements -->
+        {% endif %}
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    <!-- End your project here-->
+    {%block content %}
+    <header>
+      <!-- Intro settings -->
+      <style>
+        /* Default height for small devices */
+        #intro-example {
+          height: 400px;
+        }
+
+        /* Height for devices larger than 992px */
+        @media (min-width: 992px) {
+          #intro-example {
+            height: 600px;
+          }
+        }
+      </style>
+
+      <!-- Background image -->
+      <div
+        id="intro-example"
+        class="p-5 text-center bg-image"
+        style="
+          background-image: url('https://media.istockphoto.com/id/1372053987/vector/default-bank-loans-isometric-3d.jpg?s=612x612&w=0&k=20&c=Rqy-n5FhihLGtOf6DtdKjyRI-8l2sRXPYjG69ie79cM=');
+        "
+      >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.7)">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+              <h1 class="mb-3">Solutions for your financial needs</h1>
+              <h5 class="mb-4">
+                Let us help you finance your future with Quick cash, no hassle
+              </h5>
+              <h4>5.99%—23.99%</h4>
+              {% if user.is_authenticated %}
+              <a
+                class="btn btn-outline-light btn-lg m-2"
+                role="button"
+                rel="nofollow"
+                href="/loan/application"
+                >Apply Now</a
+              >
+              {% else %}
+              <a
+                class="btn btn-outline-light btn-lg m-2"
+                role="button"
+                rel="nofollow"
+                href="/accounts/sighup"
+                >Apply Now</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Background image -->
+    </header>
+
+    <!-- Container for demo purpose -->
+    <!-- Container for demo purpose -->
+    {%endblock%}
+    <!-- MDB -->
+    <script type="text/javascript" src="{% static '/js/mdb.min.js' %}"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript">
+      var my_string = "{{ request.user.username }}";
+      let path = `accounts/profile/${my_string}`;
+      (function () {
+        document.getElementById("link2").setAttribute("href", path);
+      })();
+
+      (function () {
+        document.getElementById("link1").setAttribute("href", path);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,204 @@
+{% extends 'loan_back/home.html' %}{% load static %} {%block content %}
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>sigh in</title>
+
+  <style>
+    .container {
+      margin: 0 auto;
+      width: 40%;
+      position: fixed;
+      top: 60%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    @media only screen and (max-width: 600px) {
+      .container {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form method="post" id="myform" action="/loan/application">
+      {% csrf_token %}
+      <div class="mb-4 text-center">
+        <h1>loan application</h1>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <label class="form-label" for="typeNumber">username</label>
+
+          <div class="form-outline">
+            <input
+              class="form-control"
+              id="formControlDisabled"
+              type="text"
+              placeholder="Disabled input"
+              aria-label="disabled input example"
+              disabled
+              name="username"
+            />
+            <label class="form-label" for="formControlDisabled"
+              >{{request.user.username}}</label
+            >
+          </div>
+        </div>
+        <div class="col">
+          <label class="form-label" for="typeNumber">lastname</label>
+
+          <div class="form-outline">
+            <input
+              class="form-control"
+              id="formControlDisabled"
+              type="text"
+              placeholder="Disabled input"
+              aria-label="disabled input example"
+              disabled
+            />
+            <label class="form-label" for="formControlDisabled"
+              >{{request.user.lastname}}</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <label class="form-label" for="typeNumber">email</label>
+          <div class="form-outline">
+            <input
+              class="form-control"
+              id="formControlDisabled"
+              type="text"
+              placeholder="Disabled input"
+              aria-label="disabled input example"
+              disabled
+            />
+            <label class="form-label" for="formControlDisabled"
+              >{{request.user.email}}</label
+            >
+          </div>
+        </div>
+
+        <div class="col">
+          <label class="form-label" for="typeNumber">loan term</label>
+
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="term"
+          >
+            <option class="mystyle" value="36" selected>36 Months</option>
+            <option class="mystyle" value="48" selected>48 Months</option>
+            <option class="mystyle" value="60">60 Months</option>
+            <option class="mystyle" value="12" selected>12 Months</option>
+            <option class="mystyle" value="72">72 Months</option>
+            <option class="mystyle" value="84">84 Months</option>
+          </select>
+        </div>
+        <div class="col">
+          <label class="form-label" for="typeNumber">loan type</label>
+
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="category"
+          >
+            <option class="mystyle" value="Debt Consolidation Loans" selected>
+              Debt Consolidation Loans
+            </option>
+            <option class="mystyle" value="Home improvement" selected>
+              Home improvement
+            </option>
+            <option class="mystyle" value="Home improvement">
+              Home improvement
+            </option>
+            <option class="mystyle" value="Medical expense" selected>
+              Medical expense
+            </option>
+            <option class="mystyle" value="Travel">Travel</option>
+            <option class="mystyle" value="Student Loans">Student Loans</option>
+            <option class="mystyle" value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Message input -->
+      <div class="form-outline mb-4">
+        <input
+          type="number"
+          name="amount"
+          id="typeNumber"
+          class="form-control"
+        />
+        <label class="form-label" for="typeNumber">amount</label>
+      </div>
+
+      <!-- Email input -->
+      <div class="form-outline mb-4">
+        <textarea class="form-control" id="form4Example3" rows="4"></textarea>
+        <label class="form-label" for="form4Example3"
+          >Please be more specific, if applicable</label
+        >
+      </div>
+
+      <!-- Submit button -->
+      <!-- <button type="submit" class="btn btn-primary btn-block mb-4">
+        Send loan request
+      </button> -->
+      <button
+        type="submit"
+        class="btn btn-primary btn-block mb-4"
+        data-mdb-toggle="modal"
+        data-mdb-target="#exampleModal"
+      >
+        send loan request
+      </button>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    id="exampleModal"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Loan Application</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-mdb-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          request has been sent and pending for approval
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-mdb-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+{%endblock%}

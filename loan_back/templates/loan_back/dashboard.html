@@ -1,0 +1,575 @@
+{% load static %} {% include "loan_back/message.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="{% static '/css/mdb.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static '/manager/css/mdb.min.css' %}" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{% static '/manager/css/admin.css' %}" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@500;700&family=Pacifico&family=Tilt+Prism&display=swap");
+      .h1 {
+        /* margin: 0; */
+        font-family: "Abril Fatface", cursive;
+      }
+      .h1 span {
+        color: blue;
+      }
+      #sidebarMenu {
+        padding-top: 5em;
+      }
+      .ripple {
+        margin-bottom: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--Main Navigation-->
+    <header>
+      <!-- Sidebar -->
+      <nav
+        id="sidebarMenu"
+        class="collapse d-lg-block sidebar collapse bg-white"
+      >
+        <div class="position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
+            <a
+              href="/manager/dashboard"
+              class="list-group-item list-group-item-action py-2 ripple"
+              aria-current="true"
+            >
+              <i class="fas fa-tachometer-alt fa-fw me-3"></i
+              ><span>Main dashboard</span>
+            </a>
+            <a
+              href="/manager/users"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
+            >
+            <a
+              href="/manager/Transactions"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-money-bill fa-fw me-3"></i
+              ><span>Transactions</span></a
+            >
+
+            <a
+              href="/manager/requested-loans"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-file-alt fa-fw me-3"></i
+              ><span>Request Loans</span></a
+            >
+            <a
+              href="/manager/approved-loans"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-handshake fa-fw me-3"></i
+              ><span>Approved Loans</span></a
+            >
+            <a
+              href="/manager/rejected-loans"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-user-times fa-fw me-3"></i
+              ><span>Rejected loans</span></a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <!-- Navbar -->
+      <nav
+        id="main-navbar"
+        class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+      >
+        <!-- Container wrapper -->
+
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#sidebarMenu"
+            aria-controls="sidebarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Brand -->
+          <a class="navbar-brand" href="/">
+            <!-- <img
+              src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
+              height="25"
+              alt=""
+              loading="lazy"
+            /> -->
+            <h1 class="h1"><span>xyz</span>loans</h1>
+          </a>
+
+          <!-- Right links -->
+
+          {% if user.is_authenticated %}
+
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <a class="text-reset me-3" href="#">
+              <!-- <i class="fas fa-shopping-cart fa-lg"></i> -->
+              <i class="fas fa-envelope-square fa-lg"></i>
+            </a>
+            <!-- Notifications -->
+            <div class="dropdown">
+              <a
+                class="text-reset me-3 dropdown-toggle hidden-arrow"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-bell fa-lg"></i>
+                <span class="badge rounded-pill badge-notification bg-danger"
+                  >1</span
+                >
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <!-- <li>
+                  <a class="dropdown-item" href="#">Some news</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Another news</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li> -->
+              </ul>
+            </div>
+            <!-- Avatar -->
+            <div class="dropdown">
+              <a
+                class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                id="navbarDropdownMenuAvatar"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="https://png.pngtree.com/png-vector/20190623/ourlarge/pngtree-accountavataruser--flat-color-icon--vector-icon-banner-templ-png-image_1491720.jpg"
+                  class="rounded-circle"
+                  height="40"
+                  alt="Black and White Portrait of a Man"
+                  loading="lazy"
+                />
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuAvatar"
+              >
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/accounts/profile/{{request.user.username}}"
+                  >
+                    {{ user.email}}</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/accounts/profile/{{request.user.username}}"
+                    >My profile</a
+                  >
+                </li>
+                <!-- <li>
+                  <a class="dropdown-item" href="#">Settings</a>
+                </li> -->
+                <li>
+                  <a class="dropdown-item" href="/accounts/logout">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Right elements -->
+          {% else %}
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <a href="/sighin">
+              <button type="button" class="btn btn-primary me-3">login</button>
+            </a>
+            <a href="/sighup">
+              <button type="button" class="btn btn-primary me-3">
+                apply now
+              </button>
+            </a>
+          </div>
+          <!-- Right elements -->
+          {% endif %}
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+      <!-- Navbar -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+
+    <!--Main layout-->
+    {% block content %}
+    <main style="margin-top: 5em">
+      <div class="container pt-4">
+        <!--Section: Minimal statistics cards-->
+        <section>
+          <!-- <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-success">{{users}}</h3>
+                      <p class="mb-0">users</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-users text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-danger">278</h3>
+                      <p class="mb-0">borrowers</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-rocket text-danger fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-warning">64.89 %</h3>
+                      <p class="mb-0">staff</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-user-tie text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-info">423</h3>
+                      <p class="mb-0">admin</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-user-cog text-info fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-success">{{users}}</h3>
+                      <p class="mb-0">users</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-users text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div class="align-self-center">
+                      <i class="fas fa-clipboard-list text-info fa-3x"></i>
+                    </div>
+                    <div class="text-end">
+                      <h3>{{totalborrowers}}</h3>
+                      <p class="mb-0">loan request</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div class="align-self-center">
+                      <i class="fas fa-user-check text-success fa-3x"></i>
+                    </div>
+                    <div class="text-end">
+                      <h3>{{approvedloans}}</h3>
+                      <p class="mb-0">approved loans</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div class="align-self-center">
+                      <i class="fas fa-user-times text-danger fa-3x"></i>
+                    </div>
+                    <div class="text-end">
+                      <h3>{{rejectedloans}}</h3>
+                      <p class="mb-0">rejected loans</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div class="align-self-center">
+                      <i class="fas fa-chart-line text-success fa-3x"></i>
+                    </div>
+                    <div class="text-end">
+                      <h3>64.89 %</h3>
+                      <p class="mb-0">Transactions</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-info">{{total}}</h3>
+                      <p class="mb-0">total approved amount</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-money-check-alt text-info fa-3x"></i>
+                    </div>
+                  </div>
+                  <div class="px-md-1">
+                    <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                      <div
+                        class="progress-bar bg-info"
+                        role="progressbar"
+                        style="width: 80%"
+                        aria-valuenow="80"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-warning">{{payable}}</h3>
+                      <p class="mb-0">total payable loans</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="far fa-comments text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                  <div class="px-md-1">
+                    <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                      <div
+                        class="progress-bar bg-warning"
+                        role="progressbar"
+                        style="width: 35%"
+                        aria-valuenow="35"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-success">64.89 %</h3>
+                      <p class="mb-0">total amount of paid loans</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-money-bill-wave text-success fa-3x"></i>
+                    </div>
+                  </div>
+                  <div class="px-md-1">
+                    <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                      <div
+                        class="progress-bar bg-success"
+                        role="progressbar"
+                        style="width: 60%"
+                        aria-valuenow="60"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                    <div>
+                      <h3 class="text-danger">423</h3>
+                      <p class="mb-0">total amount of due loans</p>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-money-check-alt text-danger fa-3x"></i>
+                    </div>
+                  </div>
+                  <div class="px-md-1">
+                    <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                      <div
+                        class="progress-bar bg-danger"
+                        role="progressbar"
+                        style="width: 40%"
+                        aria-valuenow="40"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </section>
+        <!--Section: Minimal statistics cards-->
+
+        <!-- Section: Statistics with subtitles-->
+        <section>
+          <div class="row">
+            <div class="col-xl-6 col-md-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <i
+                          class="fas fa-money-check-alt text-info fa-3x m-3"
+                        ></i>
+                      </div>
+                      <div>
+                        <h4>total</h4>
+                        <p class="mb-0">total amount of approved loans</p>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <h2 class="h1 mb-0">{{total}}</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-md-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <i
+                          class="fas fa-money-check-alt text-danger fa-3x m-3"
+                        ></i>
+                      </div>
+                      <div>
+                        <h4>Total due loan</h4>
+
+                        total amount of due loan
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <h2 class="h1 mb-0">{{payable}}</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!--Section: Statistics with subtitles -->
+      </div>
+    </main>
+    {% endblock %}
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="{% static '/manager/js/mdb.min.js' %}"
+    ></script>
+    <!-- Custom scripts -->
+    <script
+      type="text/javascript"
+      src="{% static '/manager/js/admin.js' %}"
+    ></script>
+    <!-- <script type="text/javascript" src="{% static '/js/mdb.min.js' %}"></script> -->
+  </body>
+</html>

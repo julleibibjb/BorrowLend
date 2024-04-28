@@ -1,0 +1,59 @@
+{% extends 'loan_back/dashboard.html' %}{% load static %} {% block content %}
+<style>
+  .dir {
+    cursor: pointer;
+  }
+</style>
+<main style="margin-top: 6em">
+  <div class="container pt-4 mt-3">
+    <section class="mb-4">
+      <h1>{{type}}</h1>
+      <table class="table align-middle mb-0 bg-white" style="margin-top: 1em">
+        <thead class="bg-light">
+          <tr>
+            <th>Name</th>
+            <th>user id</th>
+            <th>status</th>
+            <!-- <th>amount</th> -->
+            <th>date</th>
+            <th>phone</th>
+            <!-- <th>type</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          {% for users in Users %}
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                  src="{% static '/img/default.png' %}"
+                  class="rounded-circle"
+                  alt=""
+                  style="width: 45px; height: 45px"
+                />
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">{{users.username}}</p>
+                  <p class="text-muted mb-0">{{users.email}}</p>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="fw-normal mb-1">{{users.id}}</p>
+            </td>
+            <td>
+              <span class="btn-success rounded-pill d-inline p-2">
+                is active</span
+              >
+            </td>
+            <!-- <td>amount</td> -->
+            <td>{{users.created_at}}</td>
+            <td>{{users.phone}}</td>
+            <!-- <td></td> -->
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+{% endblock %}

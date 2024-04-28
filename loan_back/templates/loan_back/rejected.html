@@ -1,0 +1,321 @@
+{% load static %} {% include "loan_back/message.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="{% static '/css/mdb.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static '/manager/css/mdb.min.css' %}" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="{% static '/manager/css/admin.css' %}" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+      integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Dancing+Script:wght@500;700&family=Pacifico&family=Tilt+Prism&display=swap");
+      .h1 {
+        /* margin: 0; */
+        font-family: "Abril Fatface", cursive;
+      }
+      .h1 span {
+        color: blue;
+      }
+      #sidebarMenu {
+        padding-top: 5em;
+      }
+      .ripple {
+        margin-bottom: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--Main Navigation-->
+    <header>
+      <!-- Sidebar -->
+      <nav
+        id="sidebarMenu"
+        class="collapse d-lg-block sidebar collapse bg-white"
+      >
+        <div class="position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
+            <a
+              href="/manager/dashboard"
+              class="list-group-item list-group-item-action py-2 ripple"
+              aria-current="true"
+            >
+              <i class="fas fa-tachometer-alt fa-fw me-3"></i
+              ><span>Main dashboard</span>
+            </a>
+            <a
+              href="/manager/users"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
+            >
+            <a
+              href="/manager/Transactions"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-money-bill fa-fw me-3"></i
+              ><span>Transactions</span></a
+            >
+
+            <a
+              href="/manager/requested-loans"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-file-alt fa-fw me-3"></i
+              ><span>Request Loans</span></a
+            >
+            <a
+              href="/manager/approved-loans"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-handshake fa-fw me-3"></i
+              ><span>Approved Loans</span></a
+            >
+            <a
+              href="/manager/rejected-loans"
+              class="list-group-item list-group-item-action py-2 ripple"
+              ><i class="fas fa-user-times fa-fw me-3"></i
+              ><span>Rejected loans</span></a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <!-- Navbar -->
+      <nav
+        id="main-navbar"
+        class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+      >
+        <!-- Container wrapper -->
+
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#sidebarMenu"
+            aria-controls="sidebarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Brand -->
+          <a class="navbar-brand" href="/">
+            <!-- <img
+              src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
+              height="25"
+              alt=""
+              loading="lazy"
+            /> -->
+            <h1 class="h1"><span>xyz</span>loans</h1>
+          </a>
+
+          <!-- Right links -->
+
+          {% if user.is_authenticated %}
+
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <a class="text-reset me-3" href="#">
+              <!-- <i class="fas fa-shopping-cart fa-lg"></i> -->
+              <i class="fas fa-envelope-square fa-lg"></i>
+            </a>
+            <!-- Notifications -->
+            <div class="dropdown">
+              <a
+                class="text-reset me-3 dropdown-toggle hidden-arrow"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-bell fa-lg"></i>
+                <span class="badge rounded-pill badge-notification bg-danger"
+                  >1</span
+                >
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <!-- <li>
+                  <a class="dropdown-item" href="#">Some news</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Another news</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li> -->
+              </ul>
+            </div>
+            <!-- Avatar -->
+            <div class="dropdown">
+              <a
+                class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                href="#"
+                id="navbarDropdownMenuAvatar"
+                role="button"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  src="https://png.pngtree.com/png-vector/20190623/ourlarge/pngtree-accountavataruser--flat-color-icon--vector-icon-banner-templ-png-image_1491720.jpg"
+                  class="rounded-circle"
+                  height="40"
+                  alt="Black and White Portrait of a Man"
+                  loading="lazy"
+                />
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuAvatar"
+              >
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/accounts/profile/{{request.user.username}}"
+                  >
+                    {{ user.email}}</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/accounts/profile/{{request.user.username}}"
+                    >My profile</a
+                  >
+                </li>
+                <!-- <li>
+                  <a class="dropdown-item" href="#">Settings</a>
+                </li> -->
+                <li>
+                  <a class="dropdown-item" href="/accounts/logout">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Right elements -->
+          {% else %}
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <a href="/sighin">
+              <button type="button" class="btn btn-primary me-3">login</button>
+            </a>
+            <a href="/sighup">
+              <button type="button" class="btn btn-primary me-3">
+                apply now
+              </button>
+            </a>
+          </div>
+          <!-- Right elements -->
+          {% endif %}
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+      <!-- Navbar -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main style="margin-top: 6em">
+      <div class="container pt-4">
+        <!--Section: Sales Performance KPIs-->
+        <section class="mb-4">
+          <h1>approved Loans</h1>
+          <table
+            class="table align-middle mb-0 bg-white"
+            style="margin-top: 1em"
+          >
+            <thead class="bg-light">
+              <tr>
+                <th>loan id</th>
+                <th>Name</th>
+                <th>user id</th>
+                <th>status</th>
+                <th>amount</th>
+                <th>date</th>
+                <th>term</th>
+                <th>type</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for loan in loanrequest %}
+              <tr>
+                <td>
+                  <p class="fw-normal mb-1">{{loan.id}}</p>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img
+                      src="{% static '/img/default.png' %}"
+                      class="rounded-circle"
+                      alt=""
+                      style="width: 45px; height: 45px"
+                    />
+                    <div class="ms-3">
+                      <p class="fw-bold mb-1">{{loan.borrower.username}}</p>
+                      <p class="text-muted mb-0">{{loan.borrower}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="fw-normal mb-1">{{loan.borrower.id}}</p>
+                </td>
+                <td>
+                  <span class="btn-danger rounded-pill d-inline p-2"
+                    >{{loan.status}}</span
+                  >
+                </td>
+                <td>{{loan.loan_amount}}</td>
+                <td>{{loan.request_date}}</td>
+                <td>{{loan.loan_term}} months</td>
+                <td>{{loan.loan_category}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+    <!--Main layout-->
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="{% static '/manager/js/mdb.min.js' %}"
+    ></script>
+    <!-- Custom scripts -->
+    <script
+      type="text/javascript"
+      src="{% static '/manager/js/admin.js' %}"
+    ></script>
+    <!-- <script type="text/javascript" src="{% static '/js/mdb.min.js' %}"></script> -->
+  </body>
+</html>
